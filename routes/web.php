@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/shipping',  'ShippingController@index');
+Route::post('/shipping', 'ShippingController@store');
