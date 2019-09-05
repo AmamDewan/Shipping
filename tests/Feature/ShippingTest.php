@@ -18,6 +18,8 @@ class ShippingTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $attributes = [
+            'name' => $this->faker->name($gender = 'male'),
+            'conversion_rate' => $this->faker->randomNumber(2),
             'number' => $this->faker->randomNumber(8),
             'email' => $this->faker->email
         ];
@@ -25,6 +27,6 @@ class ShippingTest extends TestCase
 
         $this->assertDatabaseHas('shippings', $attributes);
 
-        $this->get('/shipping')->assertSee($attributes['number']);
+        $this->get('/shipping')->assertSee($attributes['name']);
     }
 }

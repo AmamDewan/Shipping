@@ -8,7 +8,7 @@
 
 	<ul>
 		@foreach ($shippings as $shipping)
-			<li> {{ $shipping->number }} </li>
+			<li> {{ $shipping->name }} </li>
 		@endforeach
 	</ul>
 

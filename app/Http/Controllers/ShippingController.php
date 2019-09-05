@@ -38,7 +38,12 @@ class ShippingController extends Controller
     public function store(Request $request)
     {
         //Validate
-        $attributes = request()->validate(['number'=>'required', 'email' => 'required']);
+        $attributes = request()->validate([
+            'name'=>'required', 
+            'conversion_rate'=>'required', 
+            'number'=>'required', 
+            'email' => 'required'
+        ]);
         //presist
         Shipping::create($attributes);
 
