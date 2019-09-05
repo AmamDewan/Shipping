@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 
 Route::get('/shipping',  'ShippingController@index');
+Route::get('/shipping/{shipment}',  'ShippingController@show');
 Route::post('/shipping', 'ShippingController@store');

@@ -29,4 +29,31 @@ class ShippingTest extends TestCase
 
         $this->get('/shipping')->assertSee($attributes['name']);
     }
+
+    /** @test */
+    public function a_user_can_view_a_shipment()
+    {
+        $this->withoutExceptionHandling();
+
+        $shipment = factory('App\Shipping')->create();
+
+        $this->get($shipment->path())
+            ->assertSee($shipment->name)
+            ->assertSee($shipment->email);
+    }
+
+
+    /** @test */
+    public function a_shipping_requires_a_number()
+    {
+        $attributes = factory('App\Shipping')->raw(['number'=>'']);
+        $this->post('/shipping', $attributes)->assertSessionHasErrors('number');
+    }
+
+    /** @test */
+    public function a_shipping_requires_a_email()
+    {
+        $attributes = factory('App\Shipping')->raw(['email'=>'']);
+        $this->post('/shipping', $attributes)->assertSessionHasErrors('email');
+    }
 }

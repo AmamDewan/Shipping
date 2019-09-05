@@ -7,9 +7,13 @@
 	<h1>Shipping</h1>
 
 	<ul>
-		@foreach ($shippings as $shipping)
-			<li> {{ $shipping->name }} </li>
-		@endforeach
+		@forelse ($shipments as $shipment)
+			<li> 
+				<a href="{{ $shipment->path() }}">{{ $shipment->name }}</a>
+			</li>
+		@empty
+				<li>No shipment yet</li>
+		@endforelse
 	</ul>
 
 </body>

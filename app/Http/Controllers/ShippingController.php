@@ -14,9 +14,9 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        $shippings = Shipping::all();
+        $shipments = Shipping::all();
 
-        return view('shipping.index', compact('shippings'));
+        return view('shipping.index', compact('shipments'));
     }
 
     /**
@@ -57,9 +57,9 @@ class ShippingController extends Controller
      * @param  \App\Shipping  $shipping
      * @return \Illuminate\Http\Response
      */
-    public function show(Shipping $shipping)
+    public function show(Shipping $shipment)
     {
-        //
+        return view('shipping.show', compact('shipment'));
     }
 
     /**
