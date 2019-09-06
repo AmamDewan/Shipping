@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Shipping;
 use Illuminate\Http\Request;
 
@@ -39,13 +40,14 @@ class ShippingController extends Controller
     {
         //Validate
         $attributes = request()->validate([
-            'name'=>'required', 
-            'conversion_rate'=>'required', 
-            'number'=>'required', 
-            'email' => 'required'
-        ]);
+            'name'=>'required',
+            'conversion_rate'=>'required',
+            'number'=>'required',
+            'email' => 'required',
+         ]);
+
+        auth()->user()->shipping()->create($attributes);
         //presist
-        Shipping::create($attributes);
 
         // redirect
         return redirect('/shipping');

@@ -9,14 +9,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ShippingTest extends TestCase
 {
     use WithFaker, RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @test
-     */
+
+    /** @test */
+    public function only_authenticated_users_can_create_projects()
+    {
+        $attributes = factory('App\Shipping')->raw();
+        $this->post('/shipping', $attributes)->assertRedirect('login');
+    }
+
+    /** @test */
     public function a_user_can_create_a_shipment()
     {
         $this->withoutExceptionHandling();
+        $this->actingAs(factory('App\User')->create());
+
         $attributes = [
             'name' => $this->faker->name($gender = 'male'),
             'conversion_rate' => $this->faker->randomNumber(2),
@@ -42,10 +48,11 @@ class ShippingTest extends TestCase
             ->assertSee($shipment->email);
     }
 
-
     /** @test */
     public function a_shipping_requires_a_number()
     {
+        $this->actingAs(factory('App\User')->create());
+
         $attributes = factory('App\Shipping')->raw(['number'=>'']);
         $this->post('/shipping', $attributes)->assertSessionHasErrors('number');
     }
@@ -53,6 +60,7 @@ class ShippingTest extends TestCase
     /** @test */
     public function a_shipping_requires_a_email()
     {
+        $this->actingAs(factory('App\User')->create());
         $attributes = factory('App\Shipping')->raw(['email'=>'']);
         $this->post('/shipping', $attributes)->assertSessionHasErrors('email');
     }

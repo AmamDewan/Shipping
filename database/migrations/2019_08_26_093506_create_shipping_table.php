@@ -15,11 +15,14 @@ class CreateShippingTable extends Migration
     {
         Schema::create('shippings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('owner_id');
             $table->string('name');
             $table->integer('conversion_rate');
             $table->integer('number');
             $table->string('email');
             $table->timestamps();
+
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
