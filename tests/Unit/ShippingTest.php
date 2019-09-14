@@ -16,4 +16,11 @@ class ShippingTest extends TestCase
 
     	$this->assertEquals('/shipping/'. $shipment->id, $shipment->path());
     }
+
+    /** @test */
+    public function it_belongs_to_an_owner()
+    {
+        $shipment = factory('App\Shipping')->create();
+        $this->assertInstanceOf('App\User', $shipment->owner);
+    }
 }

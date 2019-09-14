@@ -12,4 +12,8 @@ class Shipping extends Model
     {
     	return "/shipping/{$this->id}";
     }
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

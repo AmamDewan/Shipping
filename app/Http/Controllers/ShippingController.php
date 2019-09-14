@@ -15,7 +15,7 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        $shipments = Shipping::all();
+        $shipments = auth()->user()->shipping;
 
         return view('shipping.index', compact('shipments'));
     }
@@ -61,6 +61,9 @@ class ShippingController extends Controller
      */
     public function show(Shipping $shipment)
     {
+        if (auth()->user()->isNot($shipment->owner)) {
+            abort(403);
+        }
         return view('shipping.show', compact('shipment'));
     }
 

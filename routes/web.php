@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/shipping',  'ShippingController@index');
+    Route::get('/shipping/{shipment}',  'ShippingController@show');
+    Route::post('/shipping', 'ShippingController@store');
+    Route::get('/home', 'HomeController@index')->name('home');
+});
 
-Route::get('/shipping',  'ShippingController@index');
-Route::get('/shipping/{shipment}',  'ShippingController@show');
-Route::post('/shipping', 'ShippingController@store')->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

@@ -11,10 +11,24 @@ class ShippingTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
-    public function only_authenticated_users_can_create_projects()
+    public function gests_cannot_create_shipment()
     {
         $attributes = factory('App\Shipping')->raw();
         $this->post('/shipping', $attributes)->assertRedirect('login');
+    }
+
+    /** @test */
+    public function gests_cannot_view_shipment()
+    {
+        $this->post('/shipping')->assertRedirect('login');
+    }
+
+    /** @test */
+    public function gests_cannot_view_a_single_shipment()
+    {
+        $shipment = factory('App\Shipping')->create();
+
+        $this->get($shipment->path())->assertRedirect('login');
     }
 
     /** @test */
@@ -39,13 +53,25 @@ class ShippingTest extends TestCase
     /** @test */
     public function a_user_can_view_a_shipment()
     {
+        $this->be(factory('App\User')->create());
         $this->withoutExceptionHandling();
 
-        $shipment = factory('App\Shipping')->create();
+        $shipment = factory('App\Shipping')->create(['owner_id'=> auth()->id()]);
 
         $this->get($shipment->path())
             ->assertSee($shipment->name)
             ->assertSee($shipment->email);
+    }
+
+    /** @test */
+    public function an_authenticated_user_cannot_view_the_shipment_of_other()
+    {
+        $this->be(factory('App\User')->create());
+        // $this->withoutExceptionHandling();
+
+        $shipment = factory('App\Shipping')->create();
+
+        $this->get($shipment->path())->assertStatus(403);
     }
 
     /** @test */
