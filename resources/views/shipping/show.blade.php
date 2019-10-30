@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+@extends('layouts.app' , ['class' => 'bg-default'])
+@section('content')
 	<h1>{{ $shipment->name }}</h1>
 	<div>	{{ $shipment->email }}</div>
 
 
-</body>
-</html>
+@extends('layouts.app')
+@section('content')

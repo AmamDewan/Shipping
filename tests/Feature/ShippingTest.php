@@ -25,7 +25,7 @@ class ShippingTest extends TestCase
 
     /** @test */
     public function gests_cannot_view_a_single_shipment()
-    {
+   {
         $shipment = factory('App\Shipping')->create();
 
         $this->get($shipment->path())->assertRedirect('login');
@@ -43,11 +43,11 @@ class ShippingTest extends TestCase
             'number' => $this->faker->randomNumber(8),
             'email' => $this->faker->email
         ];
-        $this->post('/shipping', $attributes)->assertRedirect('/shipping');
+        $this->post('/shipment', $attributes)->assertRedirect('/shipment');
 
         $this->assertDatabaseHas('shippings', $attributes);
 
-        $this->get('/shipping')->assertSee($attributes['name']);
+        $this->get('/shipment')->assertSee($attributes['name']);
     }
 
     /** @test */

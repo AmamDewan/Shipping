@@ -10,7 +10,7 @@ class Shipping extends Model
 
     public function path()
     {
-    	return "/shipping/{$this->id}";
+    	return "/shipment/{$this->id}";
     }
     public function owner()
     {

@@ -27,7 +27,7 @@ class ShippingController extends Controller
      */
     public function create()
     {
-        //
+        return view('shipping.create');
     }
 
     /**
@@ -50,7 +50,7 @@ class ShippingController extends Controller
         //presist
 
         // redirect
-        return redirect('/shipping');
+        return redirect('/shipment');
     }
 
     /**

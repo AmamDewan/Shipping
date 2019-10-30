@@ -38,6 +38,10 @@ class User extends Authenticatable
     ];
     public function shipping()
     {
-        return $this->hasMany(Shipping::class, 'owner_id');      
+        return $this->hasMany(Shipping::class, 'owner_id');
+    }
+    public function quotation()
+    {
+        return $this->hasMany(Quotation::class);
     }
 }
