@@ -27,7 +27,7 @@ class ShippingController extends Controller
      */
     public function create()
     {
-        //
+        return view('shipping.create');
     }
 
     /**

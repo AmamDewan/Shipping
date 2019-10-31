@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/shipping',  'ShippingController@index');
     Route::get('/shipping/{shipment}',  'ShippingController@show');
+    Route::get('/shipping/create',  'ShippingController@create');
     Route::post('/shipping', 'ShippingController@store');
     Route::get('/home', 'HomeController@index')->name('home');
 });
